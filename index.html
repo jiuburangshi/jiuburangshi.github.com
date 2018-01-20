@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="chinese (simplified)">
+
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="/theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="yangyang">
+  <meta name="description" content="Posts and writings by yangyang">
+
+
+
+  <title>
+    YYY
+  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="">
+        <img src="/theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href="">yangyang</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="">Index</a> &brvbar; <a href="/archives.html">Archives</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="/dockerji-docker-composean-zhuang.html">docker及docker-compose安装</a></h3>
+  </div>
+  <div class="article_text">
+    <h1>docker及docker-compose安装</h1>
+<p><strong>安装最新版docker：</strong></p>
+<p>此种方式安装的docker，没有配置文件！！！</p>
+<div class="highlight"><pre><span></span>deb/rpm install:
+
+curl -fsSL https://test.docker.com/ <span class="p">|</span> sh
+</pre></div>
+
+
+<p><strong>安装docker-compose：</strong></p>
+<p>OS X和64位的Linux用如下命令安装。</p>
+<p>sudo执行可能/usr/local/bin/目录权限不够，su切换到root下执行即可。</p>
+<div class="highlight"><pre><span></span>$ curl -L https://github.com/docker/compose/releases/download/1.9.0/docker-compose-<span class="sb">`</span>uname -s<span class="sb">`</span>-<span class="sb">`</span>uname -m<span class="sb">`</span> &gt; /usr/local/bin/docker-compose
+
+$ chmod +x /usr/local/bin/docker-compose …</pre></div>
+  </div>
+</article>
+
+<footer>
+<div id="paginator">
+
+</div>
+</footer>
+
+    <div id="ending_message">
+      <p>&copy; yangyang. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
+</body>
+</html>
