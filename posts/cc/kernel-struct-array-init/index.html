@@ -5,14 +5,14 @@
     <meta name="author" content="YangYangYang" />
     <meta name="robots" content="index, follow"/>
 
-    <meta property="og:title" content="Categories for #include "YangYangYang""/>
-    <meta property="og:url" content="/categories.html"/>
+    <meta property="og:title" content="linux内核的结构体数组初始化方式"/>
+    <meta property="og:url" content="/posts/cc/kernel-struct-array-init/"/>
     <meta property="og:site_name" content="#include "YangYangYang""/>
-    <meta property="og:type" content="website"/>
+    <meta property="og:type" content="article"/>
 
-    <link rel="canonical" href="/categories.html" />
+    <link rel="canonical" href="/posts/cc/kernel-struct-array-init/" />
 
-    <title>Categories for #include "YangYangYang"</title>
+    <title>linux内核的结构体数组初始化方式 | #include "YangYangYang"</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
@@ -43,7 +43,7 @@
                     <div class="navbar-inner">
                         <ul class="nav">
                             <li ><a href="/category/about-me.html">About me</a></li>
-                            <li ><a href="/category/cc.html">c/c++</a></li>
+                            <li class="active"><a href="/category/cc.html">c/c++</a></li>
                             <li ><a href="/category/docker.html">docker</a></li>
                             <li ><a href="/category/linux.html">linux</a></li>
                             <li ><a href="/category/python.html">python</a></li>
@@ -60,59 +60,58 @@
     <div class="row-fluid">
         <div class="span10 offset1">
             <div class="row-fluid">
-<div class="span9">
-    <section>
-    <h1>Categories for #include "YangYangYang"</h1>
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="/posts/cc/kernel-struct-array-init/" rel="bookmark"
+             title="Permalink to linux内核的结构体数组初始化方式">linux内核的结构体数组初始化方式</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="/author/yangyang.html">YangYang</a>
+    </address>
 
-    <dl>
-        <dd><a href="/category/about-me.html">About me (1)</a></dd>
-        <dd><a href="/category/cc.html">c/c++ (1)</a></dd>
-        <dd><a href="/category/docker.html">docker (2)</a></dd>
-        <dd><a href="/category/linux.html">linux (1)</a></dd>
-        <dd><a href="/category/python.html">python (1)</a></dd>
-        <dd><a href="/category/shell.html">shell (1)</a></dd>
-        <dd><a href="/category/template.html">template (1)</a></dd>
-    </dl>
-    </section>
-</div>
-<div class="span3">
-    <section id="sidebar">
-            <div>
-                <h2>Browse content by</h2>
-                <ul class="fa-ul">
-                <li><a href="/categories.html"><i class="fa-li fa fa-tags"></i> Categories</a></li>
-                <li><a href="/archives.html"><i class="fa-li fa fa-calendar"></i> Dates</a></li>
-                <li><a href="/tags.html"><i class="fa-li fa fa-tag"></i> Tags</a></li>
+    in <a href="/category/cc.html">c/c++</a>
 
-                </ul>
-            </div><!-- /.browse -->
-            <div>
-                <h2>Links</h2>
-                <ul>
-                    <li><a href="http://getpelican.com/">Pelican</a></li>
-                </ul>
-            </div><!-- /.Links -->
-            <div>
-                <h2>Social</h2>
-                <ul>
-                    <li><a href="yangyang.yuan@hotmail.com">E-mail</a></li>
-                </ul>
-            </div><!-- /.social -->
-            <div>
-                <h2>Tags</h2>
-                <ul id="cloud">
-                     <li class="tag-4"><a href="/tag/nei-he.html">内核</a></li>
-                     <li class="tag-4"><a href="/tag/pymssql.html">pymssql</a></li>
-                     <li class="tag-4"><a href="/tag/docker.html">docker</a></li>
-                     <li class="tag-4"><a href="/tag/docker-compose.html">docker-compose</a></li>
-                     <li class="tag-4"><a href="/tag/wen-jian-da-xiao-ji-suan.html">文件大小计算</a></li>
-                     <li class="tag-4"><a href="/tag/shelljin-du-tiao.html">shell进度条</a></li>
-                     <li class="tag-4"><a href="/tag/dockerjing-xiang-you-hua.html">docker镜像优化</a></li>
-                     <li class="tag-4"><a href="/tag/ben-di-cang-ku.html">本地仓库</a></li>
-                </ul>
-             </div>
-<!-- /.Tags -->
-    </section><!-- /#sidebar -->
+    on 2017-07-06
+
+        |
+        tags:         <a href="/tag/nei-he.html">内核</a>
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <p>话不多说，一看就懂：</p>
+<div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">proto_id_str</span> <span class="p">{</span>
+    <span class="kt">int</span>     <span class="n">id</span><span class="p">;</span>
+    <span class="kt">char</span>    <span class="n">str</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+<span class="p">}</span> <span class="n">proto_id_str_st</span><span class="p">;</span>
+
+
+<span class="n">proto_id_str_st</span> <span class="n">transport_info</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="p">.</span><span class="n">id</span>     <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
+            <span class="p">.</span><span class="n">str</span>    <span class="o">=</span> <span class="s">&quot;TCP&quot;</span>
+        <span class="p">},</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="p">.</span><span class="n">id</span>     <span class="o">=</span> <span class="mi">17</span><span class="p">,</span>
+            <span class="p">.</span><span class="n">str</span>    <span class="o">=</span> <span class="s">&quot;UDP&quot;</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+</pre></div>
+
+
+<p>是不是感觉很干净，很整洁，很清晰。还是要多学学内核编码。</p>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
 </div>
             </div>
         </div>

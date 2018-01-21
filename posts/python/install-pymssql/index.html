@@ -5,14 +5,14 @@
     <meta name="author" content="YangYangYang" />
     <meta name="robots" content="index, follow"/>
 
-    <meta property="og:title" content="Categories for #include "YangYangYang""/>
-    <meta property="og:url" content="/categories.html"/>
+    <meta property="og:title" content="编译安装python mssql模块"/>
+    <meta property="og:url" content="/posts/python/install-pymssql/"/>
     <meta property="og:site_name" content="#include "YangYangYang""/>
-    <meta property="og:type" content="website"/>
+    <meta property="og:type" content="article"/>
 
-    <link rel="canonical" href="/categories.html" />
+    <link rel="canonical" href="/posts/python/install-pymssql/" />
 
-    <title>Categories for #include "YangYangYang"</title>
+    <title>编译安装python mssql模块 | #include "YangYangYang"</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
@@ -46,7 +46,7 @@
                             <li ><a href="/category/cc.html">c/c++</a></li>
                             <li ><a href="/category/docker.html">docker</a></li>
                             <li ><a href="/category/linux.html">linux</a></li>
-                            <li ><a href="/category/python.html">python</a></li>
+                            <li class="active"><a href="/category/python.html">python</a></li>
                             <li ><a href="/category/shell.html">shell</a></li>
                             <li ><a href="/category/template.html">template</a></li>
                         </ul>
@@ -60,59 +60,58 @@
     <div class="row-fluid">
         <div class="span10 offset1">
             <div class="row-fluid">
-<div class="span9">
-    <section>
-    <h1>Categories for #include "YangYangYang"</h1>
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="/posts/python/install-pymssql/" rel="bookmark"
+             title="Permalink to 编译安装python mssql模块">编译安装python mssql模块</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="/author/yangyang.html">YangYang</a>
+    </address>
 
-    <dl>
-        <dd><a href="/category/about-me.html">About me (1)</a></dd>
-        <dd><a href="/category/cc.html">c/c++ (1)</a></dd>
-        <dd><a href="/category/docker.html">docker (2)</a></dd>
-        <dd><a href="/category/linux.html">linux (1)</a></dd>
-        <dd><a href="/category/python.html">python (1)</a></dd>
-        <dd><a href="/category/shell.html">shell (1)</a></dd>
-        <dd><a href="/category/template.html">template (1)</a></dd>
-    </dl>
-    </section>
-</div>
-<div class="span3">
-    <section id="sidebar">
-            <div>
-                <h2>Browse content by</h2>
-                <ul class="fa-ul">
-                <li><a href="/categories.html"><i class="fa-li fa fa-tags"></i> Categories</a></li>
-                <li><a href="/archives.html"><i class="fa-li fa fa-calendar"></i> Dates</a></li>
-                <li><a href="/tags.html"><i class="fa-li fa fa-tag"></i> Tags</a></li>
+    in <a href="/category/python.html">python</a>
 
-                </ul>
-            </div><!-- /.browse -->
-            <div>
-                <h2>Links</h2>
-                <ul>
-                    <li><a href="http://getpelican.com/">Pelican</a></li>
-                </ul>
-            </div><!-- /.Links -->
-            <div>
-                <h2>Social</h2>
-                <ul>
-                    <li><a href="yangyang.yuan@hotmail.com">E-mail</a></li>
-                </ul>
-            </div><!-- /.social -->
-            <div>
-                <h2>Tags</h2>
-                <ul id="cloud">
-                     <li class="tag-4"><a href="/tag/nei-he.html">内核</a></li>
-                     <li class="tag-4"><a href="/tag/pymssql.html">pymssql</a></li>
-                     <li class="tag-4"><a href="/tag/docker.html">docker</a></li>
-                     <li class="tag-4"><a href="/tag/docker-compose.html">docker-compose</a></li>
-                     <li class="tag-4"><a href="/tag/wen-jian-da-xiao-ji-suan.html">文件大小计算</a></li>
-                     <li class="tag-4"><a href="/tag/shelljin-du-tiao.html">shell进度条</a></li>
-                     <li class="tag-4"><a href="/tag/dockerjing-xiang-you-hua.html">docker镜像优化</a></li>
-                     <li class="tag-4"><a href="/tag/ben-di-cang-ku.html">本地仓库</a></li>
-                </ul>
-             </div>
-<!-- /.Tags -->
-    </section><!-- /#sidebar -->
+    on 2017-12-21
+
+        |
+        tags:         <a href="/tag/pymssql.html">pymssql</a>
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <p>主要的步骤就是下面几个，网上下载相应的包，按以下流程走一遍，就ok了。博主亲测。</p>
+<div class="highlight"><pre><span></span>tar -xvzf freetds-0.82.tar.gz
+<span class="nb">cd</span> freetds-0.82
+./configure --prefix<span class="o">=</span>/usr/local/freetds --with-tdsver<span class="o">=</span><span class="m">8</span>.0 --enable-msdblib --enable-dbmfix --with-gnu-ld --enable-shared --enable-static
+make <span class="o">&amp;&amp;</span> make install
+
+tar -xvzf setuptools-38.2.4.zip
+<span class="nb">cd</span> setuptools-38.2.4
+python setup.py install
+
+tar -xvzf setuptools-git-1.2.tar.gz
+<span class="nb">cd</span> setuptools-git-1.2
+python setup.py install
+
+tar -xvzf pymssql-2.1.3.tar.gz
+<span class="nb">cd</span> pymssql-2.1.3
+python setup.py install
+</pre></div>
+
+
+<p><strong>attention：</strong>freetds的库路径，要加到/etc/ld.so.conf中，否则会报找不到库的错误。</p>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
 </div>
             </div>
         </div>

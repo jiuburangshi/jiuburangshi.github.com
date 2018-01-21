@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="YangYangYang" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="优化缩小docker镜像体积"/>
+    <meta property="og:url" content="/posts/docker/docker-image-size/"/>
+    <meta property="og:site_name" content="#include "YangYangYang""/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="/posts/docker/docker-image-size/" />
+
+    <title>优化缩小docker镜像体积 | #include "YangYangYang"</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="/theme/css/main.css" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="/">#include "YangYangYang" </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="/category/about-me.html">About me</a></li>
+                            <li ><a href="/category/cc.html">c/c++</a></li>
+                            <li class="active"><a href="/category/docker.html">docker</a></li>
+                            <li ><a href="/category/linux.html">linux</a></li>
+                            <li ><a href="/category/python.html">python</a></li>
+                            <li ><a href="/category/shell.html">shell</a></li>
+                            <li ><a href="/category/template.html">template</a></li>
+                        </ul>
+
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="/posts/docker/docker-image-size/" rel="bookmark"
+             title="Permalink to 优化缩小docker镜像体积">优化缩小docker镜像体积</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="/author/yangyang.html">YangYang</a>
+    </address>
+
+    in <a href="/category/docker.html">docker</a>
+
+    on 2017-07-20
+
+        |
+        tags:         <a href="/tag/dockerjing-xiang-you-hua.html">docker镜像优化</a>
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <p><strong>场景描述：</strong></p>
+<ol>
+<li>​    通常大家的镜像制作，是通过在Dockerfile中通过add、copy添加需要的源代码目录、文件、rpm包等等文件</li>
+<li>​    执行编译、安装等操作后，通过RUN rm -rf 。。。来删除不再需要的源码文件、rpm文件</li>
+<li>​    期望通过RUN rm删除无用文件，减小镜像大小。</li>
+</ol>
+<p><strong>问题：</strong></p>
+<p>​    我们本以为安装完了删除这些文件，这个文件就不会占用空间了。</p>
+<p>​    但由于docker镜像是分层存储的，每一条dockerfile中命令的执行，实际就构成了目标镜像新的一层。dockerfile构建镜像，实际是不断的在前一个临时镜像的基础上，commit上一条命令的执行结果（加一层），生成一个新的临时镜像，再以此临时镜像为基础执行下一条命令，直到结束。</p>
+<p>​    因而，删除RUN rm操作，并不影响已经commit的之前的层的大小和文件，只是在RUN rm执行的这一层开始，将该文件标记为不可见；之前的父层中仍然包含这一文件，占用空间。而最终由这些层构建出来目标镜像也仍然包含了该文件。</p>
+<p>​    </p>
+<p><strong>结论：</strong></p>
+<p>​    是否<strong>通过RUN rm来删除之前的层中的文件，并不会影响最终镜像的大小。实际上，它只影响了在docker镜像的这一层上，是否能看得见这个文件。只是将其标记为不可见</strong>。</p>
+<p>​    具体原理，参考docker镜像层的原理：</p>
+<p>​    <a href="http://blog.csdn.net/shlazww/article/details/47375009">http://blog.csdn.net/shlazww/article/details/47375009</a> </p>
+<p>​    <a href="http://www.cnblogs.com/ToBeSmart/p/4311249.html">http://www.cnblogs.com/ToBeSmart/p/4311249.html</a> </p>
+<p>​    那么，通过ADD、COPY添加后，通过RUN rm删除意义不大，又如何删除这些占用空间又没用的东西呢？</p>
+<p><strong>解决办法：</strong></p>
+<p>​    我采用的方法就是wget，自己通过yum install -y vsftp安装一个ftpserver，把文件放到ftp目录下。</p>
+<p>​    制作docker镜像时，Dockerfile中通过RUN wget ftp://x.x.x.x/file.tar.gz &amp;&amp; tar -xvzPf。。。。&amp;&amp; rpm -ivh ...... &amp;&amp; rm -rf file目录和file.tar.gz</p>
+<p>​    就能保证，在本层里面即安装了文件、又删除掉无用的安装包。从而避免无用文件增加镜像大小。也就不用再单独执行RUN rm了。</p>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

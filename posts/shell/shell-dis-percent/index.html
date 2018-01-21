@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="YangYangYang" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="shell功能进度条设计展示"/>
+    <meta property="og:url" content="/posts/shell/shell-dis-percent/"/>
+    <meta property="og:site_name" content="#include "YangYangYang""/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="/posts/shell/shell-dis-percent/" />
+
+    <title>shell功能进度条设计展示 | #include "YangYangYang"</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="/theme/css/main.css" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="/">#include "YangYangYang" </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="/category/about-me.html">About me</a></li>
+                            <li ><a href="/category/cc.html">c/c++</a></li>
+                            <li ><a href="/category/docker.html">docker</a></li>
+                            <li ><a href="/category/linux.html">linux</a></li>
+                            <li ><a href="/category/python.html">python</a></li>
+                            <li class="active"><a href="/category/shell.html">shell</a></li>
+                            <li ><a href="/category/template.html">template</a></li>
+                        </ul>
+
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="/posts/shell/shell-dis-percent/" rel="bookmark"
+             title="Permalink to shell功能进度条设计展示">shell功能进度条设计展示</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="/author/yangyang.html">YangYang</a>
+    </address>
+
+    in <a href="/category/shell.html">shell</a>
+
+    on 2018-01-21
+
+        |
+        tags:         <a href="/tag/shelljin-du-tiao.html">shell进度条</a>
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nv">START</span><span class="o">=</span><span class="m">1</span>
+<span class="nv">END</span><span class="o">=</span><span class="m">100</span>
+<span class="nv">TOL</span><span class="o">=</span>$<span class="o">[</span>END-START+1<span class="o">]</span>
+<span class="nv">A_SP</span><span class="o">=</span><span class="m">50</span>
+<span class="nb">echo</span> <span class="s2">&quot;Test ...&quot;</span>
+<span class="k">for</span> i in <span class="sb">`</span>seq <span class="nv">$START</span> <span class="nv">$END</span><span class="sb">`</span><span class="p">;</span>
+<span class="k">do</span>
+    <span class="nv">PER</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">&quot;(</span><span class="nv">$i</span><span class="s2">-</span><span class="nv">$START</span><span class="s2">+1)/</span><span class="nv">$TOL</span><span class="s2">*100&quot;</span> <span class="p">|</span> bc -l<span class="k">)</span>
+    <span class="nv">N_SP</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$PER</span><span class="s2">*</span><span class="nv">$A_SP</span><span class="s2">/100&quot;</span> <span class="p">|</span> bc<span class="k">)</span>
+    <span class="nb">printf</span> <span class="s2">&quot;\rnode%-</span><span class="si">${#</span><span class="nv">END</span><span class="si">}</span><span class="s2">d:[\033[43m%</span><span class="si">${</span><span class="nv">N_SP</span><span class="si">}</span><span class="s2">s\033[00m%</span>$<span class="s2">[A_SP-N_SP]s]%.2f%%&quot;</span> <span class="nv">$i</span> <span class="s2">&quot;&quot;</span> <span class="s2">&quot;&quot;</span> <span class="nv">$PER</span><span class="p">;</span>
+    sleep <span class="m">0</span>.1
+<span class="k">done</span> <span class="c1">#&gt; /tmp/pro.log&amp;</span>
+
+<span class="nv">START_TIME</span><span class="o">=</span><span class="sb">`</span>date +%s<span class="sb">`</span>
+<span class="k">while</span> <span class="o">[[</span> -n <span class="sb">`</span>ps -A<span class="p">|</span>grep <span class="nv">$!</span><span class="sb">`</span> <span class="o">]]</span><span class="p">;</span>
+<span class="k">do</span>
+    <span class="nv">TIME_ELAPSE</span><span class="o">=</span>$<span class="o">[</span><span class="sb">`</span>date +%s<span class="sb">`</span> - START_TIME<span class="o">]</span>
+    <span class="c1">#cat /tmp/pro.log</span>
+    <span class="nb">echo</span> -n <span class="s2">&quot;   Time elasped: </span><span class="nv">$TIME_ELAPSE</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+
+<span class="nb">echo</span>
+</pre></div>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>
