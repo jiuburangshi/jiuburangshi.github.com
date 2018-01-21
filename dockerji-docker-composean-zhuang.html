@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>YYY</title>
+	<meta name="description" content="">
+	<meta name="author" content="yangyang">
+
+	<!-- HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+		<script src="/theme/html5.js"></script>
+	<![endif]-->
+
+	<!-- Styles -->
+	<link href="/theme/bootstrap.min.css" rel="stylesheet">
+	<link href="/theme/local.css" rel="stylesheet">
+	<link href="/theme/pygments.css" rel="stylesheet">
+
+	<!-- Feeds -->
+
+
+
+
+</head>
+<body>
+	<div class="topbar">
+	  <div class="topbar-inner">
+		<div class="container-fluid">
+		  <a class="brand" href="/">YYY</a>
+			<ul class="nav">
+					<li class="active"><a href="/category/docker.html">docker</a></li>
+			</ul>
+			<p class="pull-right"><a href="/archives.html">[archives]</a> <a href="/tags.html">[tags]</a></p>
+		</div>
+	  </div>
+	</div>
+
+	<div class="container-fluid">
+	  <div class="sidebar">
+		<div class="well">
+			<h3>Blogroll</h3>
+			<ul>
+				<li><a href="http://getpelican.com/">Pelican</a></li>
+				<li><a href="#">You can modify those links in your config file</a></li>
+			</ul>
+			<div class="social">
+			<h3>Social</h3>
+			<ul>
+				<li><a href="#">You can add links in your config file</a></li>
+				<li><a href="#">Another social link</a></li>
+			</ul>
+			</div>
+		</div>
+	  </div>
+	  <div class="content">
+	<div class='article'>
+		<div class="page-header"><h1>docker及docker-compose安装</h1></div>
+		<div class="well small">Permalink: <a class="more" href="/dockerji-docker-composean-zhuang.html">2010-12-03 10:20:00+01:00</a>
+by <a class="url fn" href="/author/yangyang.html">yangyang </a>
+ in <a href="/category/docker.html">docker</a>
+</div>
+		<div><h1>docker及docker-compose安装</h1>
+<p><strong>安装最新版docker：</strong></p>
+<p>此种方式安装的docker，没有配置文件！！！</p>
+<div class="highlight"><pre><span></span>deb/rpm install:
+
+curl -fsSL https://test.docker.com/ <span class="p">|</span> sh
+</pre></div>
+
+
+<p><strong>安装docker-compose：</strong></p>
+<p>OS X和64位的Linux用如下命令安装。</p>
+<p>sudo执行可能/usr/local/bin/目录权限不够，su切换到root下执行即可。</p>
+<div class="highlight"><pre><span></span>$ curl -L https://github.com/docker/compose/releases/download/1.9.0/docker-compose-<span class="sb">`</span>uname -s<span class="sb">`</span>-<span class="sb">`</span>uname -m<span class="sb">`</span> &gt; /usr/local/bin/docker-compose
+
+$ chmod +x /usr/local/bin/docker-compose
+</pre></div>
+
+
+<p>这里简单介绍下两种安装docker-compose的方式，第一种方式相对简单，但是由于网络问题，常常安装不上，并且经常会断开，第二种方式略微麻烦，但是安装过程比较稳定
+方法一：</p>
+<div class="highlight"><pre><span></span>$ curl -L https://github.com/docker/compose/releases/download/1.8.1/docker-compose-<span class="sb">`</span>uname -s<span class="sb">`</span>-<span class="sb">`</span>uname -m<span class="sb">`</span> &gt; /usr/local/bin/docker-compose 
+$ chmod +x /usr/local/bin/docker-compose
+</pre></div>
+
+
+<p>查看版本信息</p>
+<div class="highlight"><pre><span></span>docker-compose --version
+</pre></div>
+
+
+<p>但是此方法会经常因为网络的原因而无法安装</p>
+<p>方法二：
+1、安装python-pip</p>
+<div class="highlight"><pre><span></span>yum -y install epel-release
+yum -y install python-pip
+</pre></div>
+
+
+<p>2、安装docker-compose</p>
+<div class="highlight"><pre><span></span>pip install docker-compose
+</pre></div>
+
+
+<p>待安装完成后，执行查询版本的命令，即可安装docker-compose</p>
+<div class="highlight"><pre><span></span>docker-compose version
+</pre></div></div>
+	</div>
+		<footer>
+		  <p>Powered by <a href="http://getpelican.com/">Pelican</a>. Theme based on <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a>.</p>
+		  <p>&copy; yangyang</p>
+		</footer>
+	  </div>
+
+	</div>
+</body>
+</html>
